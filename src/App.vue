@@ -71,7 +71,7 @@ export default {
         }
       },
       async fetchWeatherLocation() {
-        const apiKey = "";
+        const apiKey = "e6e1365861825f662ba790cbfa6d1cb9";
         if (!navigator.geolocation) {
           this.error = "Geolocation is not supported by your browser.";
           return;
