@@ -8,6 +8,13 @@
   </head>
   <body>
     <div id="app"></div>
+        <!-- 데이터 바인딩 데이터와 HTML요소를 연결 -->
+    <p>{{message}}</p>
+    <input v-model="meaage">
+    <p v-if="isVisible">This is visible</p>
+    <ul>
+      <li v-for="item in items" :key="item.id">{{item.name}}</li>
+    </ul>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
