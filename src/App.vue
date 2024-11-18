@@ -22,6 +22,8 @@
     <p>Weather: {{ weather.weather[0].description }}</p>
   </div>
 
+  <div id="map" v-if="mapVisible"></div>
+
   <p v-if="error" style="color: red;">{{error}}</p>
 </div>
 </template>
@@ -30,6 +32,7 @@
 import axios from "axios";
 import { Chart } from "chart.js";
 import L from "leaflet";
+import { createStore } from "vuex";
 
 export default {
   data() {
@@ -54,8 +57,8 @@ export default {
     },
   },
     methods: {
-      async fetchWeather() {
-        const apiKey = "";
+      async fetchWeatherCity() {
+        const apiKey = "e6e1365861825f662ba790cbfa6d1cb9";
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
         try {
@@ -182,6 +185,14 @@ input {
   width: 200px;
 }
 
+.input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
 button {
   margin-top: 10px 20px;
   font-size: 16px;
@@ -214,5 +225,44 @@ canvas {
   width: 100%;
   margin-top: 20px;
   border: 1px solid #ddd;
+}
+
+.error {
+  color: red;
+  margin-top: 20px;
+}
+/* 반응형 디자인 태블릿 기기*/
+@media (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+  }
+  input {
+    width: 150px;
+    font-size: 14px;
+  }
+  button {
+    padding: 8px 15px;
+    font-size: 14px; 
+  }
+  #map {
+    height: 300px;
+  }
+}
+/*모바일 기기*/
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+  input {
+    width: 100%;
+    font-size: 12px;
+  }
+  button {
+    padding : 5px 10px;
+    font-size: 12px;
+  }
+  #map {
+    height:250px;
+  }
 }
 </style>
