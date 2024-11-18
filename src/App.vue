@@ -82,13 +82,13 @@ button {
 }
 
 .cloudy {
-  background: url("") no-repeat center center/cover;
+  background: url("vue-practice\public\icons\clouds.png") no-repeat center center/cover;
 }
 .rainy {
-  background: url("") no-repeat center center/cover;
+  background: url("vue-practice\public\icons\rainy.png") no-repeat center center/cover;
 }
 .clear {
-  background: url("") no-repeat center center/cover;
+  background: url("vue-practice\public\icons\summer.png") no-repeat center center/cover;
 }
 .default {
   background: #f0f8ff;
