@@ -3,7 +3,7 @@
     <h1>Weather App</h1>
     <p>{{message}}</p>
 
-    <div>
+    <div class="input-container">
       <input
         v-model="city"
         type="text"
@@ -208,6 +208,7 @@ canvas {
 .default {
   background: #f0f8ff;
 }
+
 #map {
   height: 400px;
   width: 100%;
