@@ -29,6 +29,7 @@
 <script>
 import axios from "axios";
 import { Chart } from "chart.js";
+import L from "leaflet";
 
 export default {
   data() {
@@ -38,6 +39,8 @@ export default {
       weather:null, //API호출 결과 저장하는 타입
       error:null, //에러 메세지 저장하는 타입
       chart: null,
+      map: null,
+      mapVisible: false,
     }; //vue.js에서 이부분은 필수
   },
   computed: {
@@ -60,6 +63,7 @@ export default {
           const response = await axios.get(url);
           this.weather = response.data.list.slice(0, 8); //API 응답 데이터를 weather 변수에 저장
           this.createChart();
+          this.showMap(this.weather.coord.lat, this.weather.coord.lon);
         } catch (error) {
           console.error ("Error fetching weather data:", error);
           this.weather = null;
@@ -143,6 +147,25 @@ export default {
           },
         });
       },
+      showMap(lat, lon) {
+        this.mapVisible = true;
+        if (this.map) {
+          this.map.setView([lat, lon], 13);
+        } else {
+          this.map = L.map("map").setView([lat,lon], 13);
+          //OpenStreetMap 타일 추가
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap contributors',
+          }).addTo(this.map);
+
+          //마커추가
+          L.marker([lat, lon])
+            .addTo(this.map)
+            .bindPopup(`Weather: ${this.weather.weather[0].description}<br>Temp: ${this.weather.main.temp}°C`)
+            .openPopup();
+        }
+      },
     },
   };
 </script>
@@ -185,5 +208,10 @@ canvas {
 .default {
   background: #f0f8ff;
 }
+#map {
+  height: 400px;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
 </style>
-
